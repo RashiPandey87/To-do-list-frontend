@@ -15,12 +15,16 @@ const Register = () => {
     e.preventDefault();
     try {
       const res = await axios.post(`${API_BASE_URL}/api/auth/register`, { email, password });
-      alert("Registration successful! Please login.");
-      navigate("/login");
+  
+      // Auto-login after registration
+      localStorage.setItem("token", res.data.token);
+      alert("Registration successful! Redirecting to dashboard...");
+      navigate("/dashboard");
     } catch (err) {
       alert(err.response?.data?.message || "Error registering user");
     }
   };
+  
 
   return (
     <div>
